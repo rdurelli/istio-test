@@ -1,0 +1,15 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: goapp
+  namespace: ted523-istio
+spec:
+  selector:
+    app: goapp
+  type: ClusterIP
+  ports:
+  - name: goapp
+    protocol: TCP
+    port: 80
+    targetPort: 3010

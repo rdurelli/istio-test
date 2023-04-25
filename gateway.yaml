@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: go-appgateway
+  namespace: ted523-istio
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "nees.jorgeleandro.dev"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: goapp-virtualservice
+  namespace: ted523-istio
+spec:
+  hosts:
+  - "nees.jorgeleandro.dev"
+  gateways:
+  - go-appgateway
+  http:
+  - route:
+    - destination:
+        host: goapp
+        port:
+          number: 80
